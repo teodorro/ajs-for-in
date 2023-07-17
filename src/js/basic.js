@@ -1,4 +1,4 @@
-export default function orderByProps(obj, firstProps) {
+export function orderByProps(obj, firstProps) {
   if (obj == null) {
     throw new Error('null argument');
   }
@@ -28,7 +28,29 @@ export default function orderByProps(obj, firstProps) {
   );
   const pairs = [];
   firstPairs.forEach((pair) => pairs.push(pair));
-  allPairs.filter((pair) => !firstProps.some((prop) => pair.key === prop))
+  allPairs.filter((pair) => firstProps.every((prop) => pair.key !== prop))
     .forEach((pair) => pairs.push(pair));
   return pairs;
+}
+
+export function destructureSpecial(obj) {
+  if (obj == null) {
+    throw new Error('null argument');
+  }
+  if (Object.keys(obj).every((key) => key !== 'special')) {
+    throw new Error('no "special" prop');
+  }
+  const { special, ...rest } = obj;
+  console.log(rest);
+  const mappedSpecial = [];
+
+  special.forEach((element) => {
+    const {
+      id, name, icon, description = 'Описание недоступно',
+    } = element;
+    mappedSpecial.push({
+      id, name, icon, description,
+    });
+  });
+  return mappedSpecial;
 }
