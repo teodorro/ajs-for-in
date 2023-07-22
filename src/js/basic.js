@@ -37,10 +37,10 @@ export function destructureSpecial(obj) {
   if (obj == null) {
     throw new Error('null argument');
   }
-  if (Object.keys(obj).every((key) => key !== 'special')) {
+  const { special, ...rest } = obj;
+  if (special == null) {
     throw new Error('no "special" prop');
   }
-  const { special, ...rest } = obj;
   console.log(rest);
   const mappedSpecial = [];
 

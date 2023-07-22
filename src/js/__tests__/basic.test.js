@@ -105,7 +105,7 @@ test('should throw if null', () => {
 });
 
 
-test('should throw if no "special" prop', () => {
+test('should throw if no special prop', () => {
   const obj = getCharacter();
   delete obj.special;
 
